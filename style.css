@@ -236,14 +236,11 @@ h3 {
 }
 
 .avatar {
-  width: 88px;
-  height: 88px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 1.9rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #7c3aed, #06b6d4);
+  object-fit: cover;
+  border: 3px solid rgba(196, 181, 253, 0.65);
   box-shadow: 0 14px 32px rgba(124, 58, 237, 0.35);
   margin-bottom: 16px;
 }
