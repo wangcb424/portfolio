@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Changbo Wang | Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="#top" class="brand">Changbo <span>Wang</span></a>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#resume">Resume</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="card hero-main">
+          <div class="eyebrow">Portfolio Website</div>
+          <h1>Hi, I'm <span class="accent">Changbo Wang</span></h1>
+          <p class="hero-text">
+            I am a Northeastern University student pursuing a B.S. in Computer Science and Game Development.
+            I build websites, games, and interactive digital experiences with a focus on clean structure,
+            user experience, and creative problem-solving.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">View Projects</a>
+            <a class="btn btn-secondary" href="#contact">Contact Me</a>
+            <a class="btn btn-secondary" href="#resume">See Resume Highlights</a>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <strong>4</strong>
+              <span>Featured Projects</span>
+            </div>
+            <div class="stat">
+              <strong>2028</strong>
+              <span>Expected Graduation</span>
+            </div>
+            <div class="stat">
+              <strong>CS + Game Dev</strong>
+              <span>Academic Focus</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="card hero-side">
+          <div class="avatar">CW</div>
+          <div class="side-title">Quick Profile</div>
+          <p class="side-subtitle">
+            Student developer interested in web development, game development, and interactive design.
+          </p>
+
+          <div class="mini-grid">
+            <div class="mini-item">
+              <small>School</small>
+              <div>Northeastern University</div>
+            </div>
+            <div class="mini-item">
+              <small>Major</small>
+              <div>Computer Science and Game Development</div>
+            </div>
+            <div class="mini-item">
+              <small>Expected Graduation</small>
+              <div>May 2028</div>
+            </div>
+            <div class="mini-item">
+              <small>Focus</small>
+              <div>Web Development · Games · Interactive Design</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>About Me</h2>
+          <p>
+            I enjoy building projects that combine technical foundations with visual design.
+            My work often explores websites, game interactions, and digital experiences that are
+            both functional and engaging.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <div class="card info-card">
+            <h3>Introduction</h3>
+            <p>
+              I am a student developer with experience across web projects, interactive design,
+              and programming. I like turning ideas into polished projects that can be explored,
+              tested, and shared online. I am especially interested in roles where I can keep
+              growing as a developer while creating meaningful user-facing work.
+            </p>
+          </div>
+
+          <div class="card info-card">
+            <h3>Technical Skills</h3>
+            <p>Tools and technologies I use most often.</p>
+            <div class="skills">
+              <span class="tag">Python</span>
+              <span class="tag">Java</span>
+              <span class="tag">C++</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">Unity</span>
+              <span class="tag">GitHub</span>
+              <span class="tag">AWS</span>
+              <span class="tag">REST APIs</span>
+              <span class="tag">Figma</span>
+              <span class="tag">VS Code</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="resume" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Resume Highlights</h2>
+          <p>
+            A quick summary of my academic background, interests, and what I am currently looking for.
+          </p>
+        </div>
+
+        <div class="resume-grid">
+          <div class="card resume-card">
+            <h3>Education</h3>
+            <div class="resume-list">
+              <div class="resume-item">
+                <strong>Northeastern University</strong>
+                <span>B.S. in Computer Science and Game Development</span>
+              </div>
+              <div class="resume-item">
+                <strong>Expected Graduation</strong>
+                <span>May 2028</span>
+              </div>
+              <div class="resume-item">
+                <strong>Academic Interests</strong>
+                <span>Software development, websites, game systems, and user-centered design</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card resume-card">
+            <h3>Current Goals</h3>
+            <div class="resume-list">
+              <div class="resume-item">
+                <strong>Seeking</strong>
+                <span>Internships, collaborations, and project opportunities</span>
+              </div>
+              <div class="resume-item">
+                <strong>Strengths</strong>
+                <span>Creative problem-solving, project-based learning, and iterative development</span>
+              </div>
+              <div class="resume-item">
+                <strong>Portfolio Direction</strong>
+                <span>Web development, interactive experiences, and game-related projects</span>
+              </div>
+            </div>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="resume.pdf" target="_blank">Download Resume</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Featured Projects</h2>
+          <p>
+            Selected work from my GitHub portfolio, including websites and interactive projects.
+          </p>
+        </div>
+
+        <div class="projects-grid">
+          <article class="card project-card">
+            <div class="project-top">Project3 Multimodal</div>
+            <h3>Project3 Multimodal</h3>
+            <p>
+              A web-based project exploring multimodal content and interaction design.
+              It focuses on combining different media formats into one cohesive website experience.
+            </p>
+            <div class="project-links">
+              <a class="mini-link" href="https://github.com/wangcb424/Project3-Multimodal" target="_blank">GitHub Repo</a>
+            </div>
+            <div class="project-tags">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>Multimodal Design</span>
+            </div>
+          </article>
+
+          <article class="card project-card">
+            <div class="project-top">CoinCollect</div>
+            <h3>CoinCollect</h3>
+            <p>
+              A game-focused project centered on collecting coins and interactive gameplay.
+              It demonstrates logic design, user interaction, and playful visual presentation.
+            </p>
+            <div class="project-links">
+              <a class="mini-link" href="https://github.com/wangcb424/CoinCollect" target="_blank">GitHub Repo</a>
+            </div>
+            <div class="project-tags">
+              <span>Game Logic</span>
+              <span>Interaction</span>
+              <span>Gameplay</span>
+            </div>
+          </article>
+
+          <article class="card project-card">
+            <div class="project-top">GameNightYeah</div>
+            <h3>GameNightYeah</h3>
+            <p>
+              A multi-page game night planning website built with HTML, CSS, and JavaScript.
+              It focuses on structured navigation, interactive UI elements, and a clear browsing
+              experience for planning events.
+            </p>
+            <div class="project-links">
+              <a class="mini-link" href="https://github.com/wangcb424/GameNightYeah" target="_blank">GitHub Repo</a>
+            </div>
+            <div class="project-tags">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JavaScript</span>
+            </div>
+          </article>
+
+          <article class="card project-card">
+            <div class="project-top">Ren_Asset</div>
+            <h3>Ren_Asset</h3>
+            <p>
+              A project repository related to digital assets and website presentation.
+              It reflects my continued work across different creative and technical project types.
+            </p>
+            <div class="project-links">
+              <a class="mini-link" href="https://github.com/wangcb424/Ren_Asset" target="_blank">GitHub Repo</a>
+            </div>
+            <div class="project-tags">
+              <span>Assets</span>
+              <span>Web Presentation</span>
+              <span>Portfolio Work</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Experience</h2>
+          <p>
+            A few of the roles and experiences that support my development as a student and builder.
+          </p>
+        </div>
+
+        <div class="card timeline-card">
+          <div class="timeline">
+            <div class="timeline-item">
+              <h3>Freelance Web Designer & Developer</h3>
+              <div class="meta">Fiverr</div>
+              <p>
+                Designed and developed website-based work for clients, building practical experience
+                with layout, structure, presentation, and client-oriented iteration.
+              </p>
+            </div>
+
+            <div class="timeline-item">
+              <h3>Information Technology Intern</h3>
+              <div class="meta">Innospire Solutions Inc.</div>
+              <p>
+                Supported technical tasks and gained experience in professional problem-solving,
+                software-related workflows, and collaborative project environments.
+              </p>
+            </div>
+
+            <div class="timeline-item">
+              <h3>Volunteer Member</h3>
+              <div class="meta">AYLUS</div>
+              <p>
+                Participated in volunteer work and team-based activities, strengthening communication,
+                responsibility, and community engagement.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Contact</h2>
+          <p>
+            Feel free to reach out if you would like to connect, discuss my work, or talk about opportunities.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="card contact-card">
+            <h3>Contact Information</h3>
+            <div class="contact-list">
+              <div class="contact-item">
+                <strong>School Email</strong>
+                <span>wang.changb@northeastern.edu</span>
+              </div>
+              <div class="contact-item">
+                <strong>Personal Email</strong>
+                <span>wcb424@gmail.com</span>
+              </div>
+              <div class="contact-item">
+                <strong>Phone</strong>
+                <span>929-417-6238</span>
+              </div>
+              <div class="contact-item">
+                <strong>GitHub</strong>
+                <span>github.com/wangcb424</span>
+              </div>
+              <div class="contact-item">
+                <strong>LinkedIn</strong>
+                <span>linkedin.com/in/changbo-wang04</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card contact-card">
+            <h3>Let’s Connect</h3>
+            <p>
+              I am open to internships, collaborations, and new project opportunities.
+              The easiest way to reach me is by email or LinkedIn.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="mailto:wang.changb@northeastern.edu">Send Email</a>
+              <a class="btn btn-secondary" href="https://www.linkedin.com/in/changbo-wang04/" target="_blank">View LinkedIn</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="card footer-card">
+        <span>© 2026 Changbo Wang. All rights reserved.</span>
+        <span>Built with HTML, CSS, and JavaScript in VS Code</span>
+      </div>
+    </div>
+  </footer>
+
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+
+  <script src="script.js"></script>
+</body>
+</html>
