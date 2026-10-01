@@ -116,10 +116,18 @@
               <span class="tag">Java</span>
               <span class="tag">C++</span>
               <span class="tag">JavaScript</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">C#</span>
+              <span class="tag">React</span>
+              <span class="tag">Spring Boot</span>
+              <span class="tag">PostgreSQL</span>
               <span class="tag">HTML</span>
               <span class="tag">CSS</span>
               <span class="tag">Unity</span>
               <span class="tag">GitHub</span>
+              <span class="tag">GitHub Actions</span>
+              <span class="tag">JUnit</span>
+              <span class="tag">Playwright</span>
               <span class="tag">AWS</span>
               <span class="tag">REST APIs</span>
               <span class="tag">Figma</span>
@@ -176,7 +184,7 @@
             </div>
 
             <div class="hero-actions">
-              <a class="btn btn-primary" href="resume.pdf" target="_blank" rel="noopener noreferrer">Download Resume</a>
+              <a class="btn btn-primary" href="resume.pdf?v=20261001" target="_blank" rel="noopener noreferrer">Download Resume</a>
             </div>
           </div>
         </div>
@@ -197,8 +205,11 @@
             <div class="project-top">Unity Browser Game</div>
             <h3>Card Duel</h3>
             <p>
-              A Unity game with a playable browser build hosted on Unity Play.
-              Open the standalone game page to play Card Duel in your browser.
+              A solo C#/Unity strategy game combining a 6×6 exploration grid with
+              turn-based card combat. ScriptableObject-based effects, validated card
+              costs and targets, and turn-based status effects support the combat system.
+              JSON saves preserve combat state and reward claims across reloads.
+              Play the browser build on the dedicated game page, powered by Unity Play.
             </p>
 
             <div class="project-links">
@@ -208,9 +219,10 @@
 
             <div class="project-tags">
               <span>Unity</span>
+              <span>C#</span>
               <span>WebGL</span>
-              <span>Game Development</span>
-              <span>Playable Build</span>
+              <span>Turn-Based Combat</span>
+              <span>Save / Load</span>
             </div>
           </article>
 
@@ -218,17 +230,24 @@
             <div class="project-top">Public Course Seat Tracker</div>
             <h3>CourseFlow</h3>
             <p>
-              Search Northeastern course seats, save a watchlist on your device,
-              and check for changes while the page is open. The free web app requires
-              no account. The source also includes a Java/Spring Boot backend edition.
+              A responsive React/TypeScript PWA for searching Northeastern course seats
+              using public Banner data. The free app supports local watchlists, seat
+              thresholds, history, and alerts, with checks while the page is visible.
+              No account is required.
+            </p>
+            <p>
+              A separate Java/Spring Boot edition adds PostgreSQL-backed accounts,
+              email-code login, shared course polling, and notification retries.
+              JUnit, proxy, and Playwright tests cover account isolation, persistence,
+              and offline fallback, with PostgreSQL integration in GitHub Actions.
             </p>
             <div class="project-links">
               <a class="mini-link" href="courseflow/">Open CourseFlow</a>
               <a class="mini-link" href="https://github.com/wangcb424/portfolio/tree/main/_courseflow" target="_blank" rel="noopener noreferrer">Full Source</a>
             </div>
             <div class="project-tags">
-              <span>React</span><span>TypeScript</span><span>REST API</span>
-              <span>Java / Spring Boot</span><span>Automated Tests</span>
+              <span>React</span><span>TypeScript</span><span>PWA</span>
+              <span>Java / Spring Boot</span><span>PostgreSQL</span><span>Playwright</span>
             </div>
           </article>
           <article class="card project-card">
