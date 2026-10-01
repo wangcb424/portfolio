@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-10-01 — Free public edition
+
+- Published an anonymous GitHub Pages edition with real public course lookup.
+- Added per-browser watchlists, import/export, visible-page polling, local history and alerts.
+- Added a bounded read-only proxy with cache, rate limits, anonymous session isolation and 21 tests.
+- Fixed GitHub Pages/PWA subpaths, failed-query display, and unavailable-storage notices.
+- Fixed Spring repository proxy access and database URL password parsing; validated 19 Java tests and 6 real full-stack browser tests.
+- Preserved the separately deployable Java edition; no paid full-stack resources are required for the public edition.
+
 ## 0.2.0 — Web seat tracker
 
 - Added the anonymous public Banner adapter and synthetic demo adapter.

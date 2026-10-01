@@ -12,15 +12,18 @@
 | Pages / PWA | 4 项通过；子路径资产、manifest、品牌链接、停止本地服务器后的离线回退 |
 | 公开代理单元测试 | 21 项通过：匿名 Cookie 隔离、固定上游地址/重定向、CORS、缓存、队列、限速、超时、响应解析和失败处理 |
 | Java Maven verify | 19 项通过，0 失败、0 错误、0 跳过；已生成可执行 Spring Boot jar |
+| GitHub PostgreSQL 集成 | GitHub Actions run 36821226910 的 Maven verify 已成功，在 PostgreSQL 17 service 上执行集成测试和迁移 |
+| 完整 GitHub CI | [run 36821226910](https://github.com/wangcb424/portfolio/actions/runs/36821226910) 全部成功：19 Java、6 全栈浏览器、4 UI、4 Pages/PWA、8 免费版、21 代理测试；提供可运行 jar artifact |
 | Java 集成范围 | Spring Security、CSRF/session、验证码过期/重放、跨用户隔离、关注阈值、数据失败保留、通知重试、Flyway 迁移；本地 H2 PostgreSQL 模式 |
 | Java 实际进程 HTTP 验证 | 健康检查、登录、关注、模拟开位、提醒/历史、重复开位去重、删除和退出通过 |
 | Java 完整浏览器 E2E | 6 项通过：桌面/手机搜索、登录、关注、提醒、历史、第二设备账号同步及离线页面；运行真实 Spring Boot jar |
 | 云端匿名真实查询 | 2026-10-01 05:07 UTC：公开 API 返回 HTTP 200，学期列表及 202710 / CS3100 的三个 section；未使用学校账号 |
 | GitHub Pages CORS | 公开代理对 Origin `https://wangcb424.github.io` 返回相应允许头，无需凭据 |
+| 生产网页匿名浏览器验收 | 两个全新 Chromium context 均从 0 Cookie 开始；真实搜索 3 个 section、关注与刷新保留、独立访客关注隔离、手机尺寸独立关注通过；API 均 200，无脚本错误或横向溢出 |
 
 云端观测时 CS3100 的 CRN 17206、17207、17208 分别剩余 2、6、1 个席位。这仅是该时间的快照，不是保证仍然有效的数字。
 
-部署接口：`https://courseflow-public-query.hkz4sxp6x5.chatgpt.site`。网页入口：`https://wangcb424.github.io/portfolio/courseflow/`。网页发布后的匿名访问检查会在完成后更新本记录。
+部署接口：`https://courseflow-public-query.hkz4sxp6x5.chatgpt.site`。网页入口：`https://wangcb424.github.io/portfolio/courseflow/`。GitHub Pages 部署 run 36821225414 已成功，匿名 HTTPS 请求返回正式网页 HTTP 200。
 
 ## 修复过的问题
 
@@ -34,8 +37,9 @@
 ## 测试边界
 
 - 浏览器自动化使用 Chromium 的桌面和 iPhone 13 尺寸/触摸模拟，不等于真机 Safari、Firefox、系统通知或所有设备测试。
+- 生产浏览器验收通过执行环境的 HTTPS 代理，测试 context 忽略了该代理不在 Chromium 信任库中的证书；产品未修改证书验证，普通 curl HTTPS 验证也成功。
 - 免费版页面关闭、隐藏、锁屏或浏览器暂停时不持续检查，不提供云端账号同步或邮件。
-- PostgreSQL 17 的 CI 流程已配置，当前 GitHub 执行结果另行记录；本地测试不等于实际 PostgreSQL 验证。
+- PostgreSQL 17 已在 GitHub CI 验证；这不等于 Java 完整版已部署到持久云数据库。
 - Java 模式真实 Banner 在该开发环境返回 503，未验收；成功的真实学校查询来自部署后的免费代理。
 - Redis、真实 SMTP、真实 Web Push、Docker 镜像和付费全栈云端部署未验收。
 - 扩展源码已提供，未上架商店；普通使用无需扩展。

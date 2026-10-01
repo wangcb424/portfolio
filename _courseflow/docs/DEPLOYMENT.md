@@ -1,4 +1,8 @@
-# 一次部署，所有设备使用
+# 部署说明
+
+当前免费公开版已选择 GitHub Pages 静态前端和公开查询代理。普通使用者直接打开 https://wangcb424.github.io/portfolio/courseflow/，不需要购买服务器或配置邮箱。免费版重建步骤见 [FREE_EDITION_ZH.md](FREE_EDITION_ZH.md)。
+
+以下内容只适用于另外部署 Java 完整版，以提供账号同步、常驻监控和邮件。免费公开版不会执行这些配置，也没有创建付费 Render 资源。
 
 部署前需要你拥有/授权一个云账号，以及一个能够从已验证地址发信的 SMTP 服务。不要把账号密码或 SMTP 密钥发到公开仓库或聊天中；填入托管平台的环境变量。
 
@@ -8,7 +12,7 @@
 
 ## 可选 Render 路线
 
-1. 把本项目放进你自己的 GitHub 仓库。根目录保留 `Dockerfile` 和 `render.yaml`。
+1. 若选择单独部署 Java 版，把 `_courseflow/` 中的项目完整复制到一个独立 GitHub 仓库，根目录保留 `Dockerfile` 和 `render.yaml`；也可按平台文档配置对应子目录。不要把 portfolio 的静态根目录当成 Java 项目目录。
 2. 在 Render 选择 New → Blueprint，连接这个仓库。
 3. 查看待创建的 Web 服务和 PostgreSQL 的当前价格，再决定是否提交部署。配置使用付费、单实例资源；本包没有替你下单或创建账号。
 4. 按提示填写 `SMTP_HOST`、`SMTP_USERNAME`、`SMTP_PASSWORD`、`MAIL_FROM`。默认 587 + STARTTLS；如果提供商参数不同需相应配置。
