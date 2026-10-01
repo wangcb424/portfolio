@@ -1,0 +1,44 @@
+# Optional deployment blueprint. Review the paid resources before confirming deployment.
+# SMTP credentials and PUBLIC_URL are entered privately in Render, never in this file.
+services:
+  - type: web
+    name: courseflow-web
+    runtime: docker
+    plan: 0.5c-512mb
+    region: virginia
+    numInstances: 1
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /actuator/health
+    autoDeployTrigger: checksPass
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: production
+      - key: DATABASE_URL
+        fromDatabase: {name: courseflow-db, property: connectionString}
+      - key: DB_USER
+        fromDatabase: {name: courseflow-db, property: user}
+      - key: DB_PASSWORD
+        fromDatabase: {name: courseflow-db, property: password}
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: '587'
+      - key: SMTP_USERNAME
+        sync: false
+      - key: SMTP_PASSWORD
+        sync: false
+      - key: MAIL_FROM
+        sync: false
+      - key: COOKIE_SECURE
+        value: 'true'
+      - key: REDIS_ENABLED
+        value: 'false'
+databases:
+  - name: courseflow-db
+    plan: 0.1c-256mb
+    region: virginia
+    databaseName: courseflow
+    user: courseflow
+    postgresMajorVersion: '17'
+    diskSizeGB: 1
+    ipAllowList: []

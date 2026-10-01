@@ -1,0 +1,1 @@
+{"manifest_version":3,"name":"CourseFlow — Quick Track","version":"0.2.0","description":"Open a course in your CourseFlow seat tracker.","permissions":["storage","activeTab","scripting"],"action":{"default_popup":"popup.html","default_title":"Track a course in CourseFlow"}}

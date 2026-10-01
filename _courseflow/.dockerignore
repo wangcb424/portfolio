@@ -1,0 +1,11 @@
+**/node_modules
+**/target
+**/dist
+**/data
+**/test-results
+**/playwright-report
+**/*.log
+**/.env
+.git
+release
+preview

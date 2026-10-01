@@ -1,0 +1,8 @@
+ALTER TABLE cf_notifications ADD COLUMN push_delivery VARCHAR(12) NOT NULL DEFAULT 'PENDING';
+ALTER TABLE cf_notifications ADD COLUMN push_attempts INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE cf_notifications ADD COLUMN push_next_at TIMESTAMPTZ;
+CREATE TABLE cf_push_devices (
+  id VARCHAR(36) PRIMARY KEY, user_id VARCHAR(36) NOT NULL REFERENCES cf_users(id) ON DELETE CASCADE,
+  endpoint VARCHAR(2000) NOT NULL, endpoint_hash VARCHAR(64) NOT NULL UNIQUE,
+  public_key VARCHAR(200) NOT NULL, auth_secret VARCHAR(100) NOT NULL, created_at TIMESTAMPTZ NOT NULL
+);

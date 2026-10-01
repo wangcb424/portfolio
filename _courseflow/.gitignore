@@ -1,0 +1,15 @@
+target/
+node_modules/
+dist/
+dist-free/
+.idea/
+.vscode/
+.env
+*.iml
+*.log
+*.tsbuildinfo
+data/
+release/
+test-results/
+playwright-report/
+backend/src/main/resources/static/

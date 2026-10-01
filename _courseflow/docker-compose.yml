@@ -1,0 +1,12 @@
+# Convenience default: local synthetic-data demo, no separate database installation.
+services:
+  courseflow:
+    build: .
+    ports: ["127.0.0.1:8080:8080"]
+    environment:
+      SPRING_PROFILES_ACTIVE: demo
+      SERVER_ADDRESS: 0.0.0.0
+    volumes: ["courseflow-demo:/app/data"]
+    restart: unless-stopped
+volumes:
+  courseflow-demo:

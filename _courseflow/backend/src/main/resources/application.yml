@@ -1,0 +1,53 @@
+spring:
+  application.name: courseflow
+  profiles.default: demo
+  task.scheduling.pool.size: 3
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/courseflow}
+    username: ${DB_USER:courseflow}
+    password: ${DB_PASSWORD:courseflow}
+  jpa:
+    hibernate.ddl-auto: validate
+    open-in-view: false
+  flyway.enabled: true
+  mail:
+    host: ${SMTP_HOST:localhost}
+    port: ${SMTP_PORT:587}
+    username: ${SMTP_USERNAME:}
+    password: ${SMTP_PASSWORD:}
+    properties:
+      mail.smtp.auth: ${SMTP_AUTH:true}
+      mail.smtp.starttls.enable: ${SMTP_TLS:true}
+      mail.smtp.starttls.required: ${SMTP_TLS:true}
+      mail.smtp.connectiontimeout: 8000
+      mail.smtp.timeout: 8000
+      mail.smtp.writetimeout: 8000
+server:
+  port: ${PORT:8080}
+  error:
+    include-message: never
+    include-stacktrace: never
+  servlet.session:
+    timeout: 7d
+    cookie:
+      http-only: true
+      secure: ${COOKIE_SECURE:true}
+      same-site: lax
+management:
+  health.mail.enabled: false
+  endpoints.web.exposure.include: health,info
+  endpoint.health.show-details: never
+courseflow:
+  source: ${COURSEFLOW_SOURCE:banner}
+  demo: false
+  public-url: ${PUBLIC_URL:http://localhost:8080}
+  mail-from: ${MAIL_FROM:}
+  polling-enabled: ${POLLING_ENABLED:true}
+  poll-ms: ${POLL_INTERVAL_MS:300000}
+  stale-seconds: 900
+  upstream-gap-ms: 1200
+  redis-enabled: ${REDIS_ENABLED:false}
+  redis-url: ${REDIS_URL:redis://localhost:6379}
+  push-public-key: ${VAPID_PUBLIC_KEY:}
+  push-private-key: ${VAPID_PRIVATE_KEY:}
+  push-subject: ${VAPID_SUBJECT:}

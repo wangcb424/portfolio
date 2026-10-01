@@ -1,0 +1,11 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {fileURLToPath} from 'node:url';
+import {installPreview} from './preview-fixture.mjs';
+const root=new URL('../',import.meta.url);
+const source=await readFile(new URL('frontend/dist/index.html',root),'utf8');
+const js=source.match(/src="([^"]+\.js)"/)?.[1],css=source.match(/href="([^"]+\.css)"/)?.[1];
+if(!js||!css)throw new Error('Run npm run build in frontend first.');
+const script=(await readFile(new URL('frontend/dist'+js,root),'utf8')).replace(/<\/script/gi,'<\\/script');
+const style=await readFile(new URL('frontend/dist'+css,root),'utf8');
+const html=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CourseFlow — simulated interface preview</title><style>${style}\n.preview-notice{background:#fff0c5;color:#6a5016;padding:12px 20px;text-align:center;font:600 12px/1.8 system-ui}</style></head><body><div id="root"></div><script>(${installPreview.toString()})();</script><script type="module">${script}</script></body></html>`;
+const output=new URL('PREVIEW.html',root);await writeFile(output,html);console.log('Created '+fileURLToPath(output));

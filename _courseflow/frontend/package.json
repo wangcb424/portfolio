@@ -1,0 +1,26 @@
+{
+  "name": "courseflow-ui",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "test:e2e": "node run-tests.cjs",
+    "test:ui": "node run-tests.cjs --config playwright.ui.config.ts",
+    "test:pages": "node run-tests.cjs --config playwright.pages.config.ts",
+    "test:free": "node run-tests.cjs --config playwright.free.config.ts"
+  },
+  "dependencies": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.52.0",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.1",
+    "typescript": "7.0.2",
+    "vite": "8.3.0"
+  }
+}
