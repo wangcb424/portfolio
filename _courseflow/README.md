@@ -10,6 +10,7 @@ The public edition requires no GitHub, ChatGPT, or university login. Each browse
 
 ## Free public edition
 
+- Bilingual course assistant with an on-device intent classifier and grounded, read-only course tools; no model API key, account, WebGPU, or large model download. This is a focused assistant, not a general-purpose LLM. See [the assistant guide](docs/AI_ASSISTANT_ZH.md).
 - Real public Banner term/course lookup through a read-only server proxy.
 - Up to 20 local watches, thresholds, pause/resume, history, and in-app alerts.
 - Approximately five-minute checks while the page is visible and online; optional browser notifications.
@@ -79,6 +80,9 @@ npm run test:ui
 # Free anonymous edition and GitHub Pages/PWA checks:
 npm run test:free
 npm run test:pages
+# Local intent/tool logic and bilingual assistant browser checks:
+npm run test:assistant-unit
+npm run test:assistant
 # Requires the jar built with frontend assets included:
 npm run test:e2e
 ```

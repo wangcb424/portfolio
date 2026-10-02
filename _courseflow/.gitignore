@@ -12,4 +12,6 @@ data/
 release/
 test-results/
 playwright-report/
+__pycache__/
+*.pyc
 backend/src/main/resources/static/

@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-02 — On-device course assistant
+
+- Added a bilingual course assistant using a small local intent classification model and validated course lookup tools.
+- Added source-backed replies, unavailable-term handling, bounded course comparisons, and explicit actions for tracking sections.
+- Kept chat in the current page session; no paid inference API, visitor login, or large language model download.
+- Included reproducible model training data and focused logic/browser tests. This feature is not a general-purpose LLM.
+
 ## 2026-10-01 — Free public edition
 
 - Published an anonymous GitHub Pages edition with real public course lookup.

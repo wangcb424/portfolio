@@ -9,7 +9,9 @@
     "test:e2e": "node run-tests.cjs",
     "test:ui": "node run-tests.cjs --config playwright.ui.config.ts",
     "test:pages": "node run-tests.cjs --config playwright.pages.config.ts",
-    "test:free": "node run-tests.cjs --config playwright.free.config.ts"
+    "test:free": "node run-tests.cjs --config playwright.free.config.ts",
+    "test:assistant": "node run-tests.cjs --config playwright.assistant.config.ts",
+    "test:assistant-unit": "node --test tests-assistant-unit/*.test.ts"
   },
   "dependencies": {
     "react": "19.3.0",
