@@ -1,0 +1,199 @@
+{
+  "url": "https://wangcb424.github.io/portfolio/courseflow/",
+  "checkedAt": "2026-10-02T03:01:56.639Z",
+  "apiResponses": [
+    {
+      "visitor": "desktop",
+      "url": "https://courseflow-public-query.hkz4sxp6x5.chatgpt.site/api/catalog/terms",
+      "status": 200
+    },
+    {
+      "visitor": "desktop",
+      "url": "https://courseflow-public-query.hkz4sxp6x5.chatgpt.site/api/status",
+      "status": 200
+    },
+    {
+      "visitor": "desktop",
+      "url": "https://courseflow-public-query.hkz4sxp6x5.chatgpt.site/api/catalog/sections?term=202710&q=CS3100",
+      "status": 200
+    },
+    {
+      "visitor": "desktop",
+      "url": "https://courseflow-public-query.hkz4sxp6x5.chatgpt.site/api/catalog/sections?term=202710&q=CS3100",
+      "status": 200
+    },
+    {
+      "visitor": "mobile",
+      "url": "https://courseflow-public-query.hkz4sxp6x5.chatgpt.site/api/catalog/terms",
+      "status": 200
+    },
+    {
+      "visitor": "mobile",
+      "url": "https://courseflow-public-query.hkz4sxp6x5.chatgpt.site/api/status",
+      "status": 200
+    },
+    {
+      "visitor": "mobile",
+      "url": "https://courseflow-public-query.hkz4sxp6x5.chatgpt.site/api/catalog/sections?term=202710&q=CS3100",
+      "status": 200
+    },
+    {
+      "visitor": "mobile",
+      "url": "https://courseflow-public-query.hkz4sxp6x5.chatgpt.site/api/catalog/terms",
+      "status": 200
+    },
+    {
+      "visitor": "mobile",
+      "url": "https://courseflow-public-query.hkz4sxp6x5.chatgpt.site/api/catalog/terms",
+      "status": 200
+    }
+  ],
+  "pageErrors": [],
+  "initialCookies": 0,
+  "signInButtons": 0,
+  "selectedTerm": "202710",
+  "availableTerms": [
+    {
+      "code": "202710",
+      "label": "Fall 2026 Semester"
+    },
+    {
+      "code": "202655",
+      "label": "Summer 2026 CPS Quarter (View Only)"
+    },
+    {
+      "code": "202650",
+      "label": "Summer 2026 Semester (View Only)"
+    },
+    {
+      "code": "202635",
+      "label": "Spring 2026 CPS Quarter (View Only)"
+    },
+    {
+      "code": "202630",
+      "label": "Spring 2026 Semester (View Only)"
+    },
+    {
+      "code": "202625",
+      "label": "Winter 2026 CPS Quarter (View Only)"
+    },
+    {
+      "code": "202615",
+      "label": "Fall 2025 CPS Quarter (View Only)"
+    },
+    {
+      "code": "202610",
+      "label": "Fall 2025 Semester (View Only)"
+    },
+    {
+      "code": "202560",
+      "label": "Summer 2 2025 Semester (View Only)"
+    },
+    {
+      "code": "202555",
+      "label": "Summer 2025 CPS Quarter (View Only)"
+    },
+    {
+      "code": "202554",
+      "label": "Summer 2025 CPS Semester (View Only)"
+    },
+    {
+      "code": "202552",
+      "label": "Summer 2025 Law Semester (View Only)"
+    },
+    {
+      "code": "202550",
+      "label": "Summer Full 2025 Semester (View Only)"
+    },
+    {
+      "code": "202540",
+      "label": "Summer 1 2025 Semester (View Only)"
+    },
+    {
+      "code": "202535",
+      "label": "Spring 2025 CPS Quarter (View Only)"
+    },
+    {
+      "code": "202534",
+      "label": "Spring 2025 CPS Semester (View Only)"
+    },
+    {
+      "code": "202532",
+      "label": "Spring 2025 Law Semester (View Only)"
+    },
+    {
+      "code": "202530",
+      "label": "Spring 2025 Semester (View Only)"
+    },
+    {
+      "code": "202525",
+      "label": "Winter 2025 CPS Quarter (View Only)"
+    },
+    {
+      "code": "202515",
+      "label": "Fall 2024 CPS Quarter (View Only)"
+    },
+    {
+      "code": "202514",
+      "label": "Fall 2024 CPS Semester (View Only)"
+    },
+    {
+      "code": "202512",
+      "label": "Fall 2024 Law Semester (View Only)"
+    },
+    {
+      "code": "202510",
+      "label": "Fall 2024 Semester (View Only)"
+    },
+    {
+      "code": "202460",
+      "label": "Summer 2 2024 Semester (View Only)"
+    },
+    {
+      "code": "202455",
+      "label": "Summer 2024 CPS Quarter (View Only)"
+    },
+    {
+      "code": "202454",
+      "label": "Summer 2024 CPS Semester (View Only)"
+    },
+    {
+      "code": "202452",
+      "label": "Summer 2024 Law Semester (View Only)"
+    },
+    {
+      "code": "202450",
+      "label": "Summer Full 2024 Semester (View Only)"
+    },
+    {
+      "code": "202440",
+      "label": "Summer 1 2024 Semester (View Only)"
+    },
+    {
+      "code": "202435",
+      "label": "Spring 2024 CPS Quarter (View Only)"
+    }
+  ],
+  "courseCodes": [
+    "CS3100",
+    "CS3100",
+    "CS3100"
+  ],
+  "available": [
+    "2",
+    "6",
+    "1"
+  ],
+  "trackedByExplicitButton": true,
+  "desktopOverflow": false,
+  "mobileInitialCookies": 0,
+  "isolatedVisitor": true,
+  "unpublishedTermReply": "当前返回的学期列表中没有 Spring 2099；可能尚未发布，或列表暂时不完整。我没有改查其他学期。请从可用列表选择，或稍后再试。",
+  "unknownTermSearches": 0,
+  "spring2027Reply": "当前返回的学期列表中没有 Spring 2027；可能尚未发布，或列表暂时不完整。我没有改查其他学期。请从可用列表选择，或稍后再试。",
+  "spring2027Sections": 0,
+  "spring2027Searches": 0,
+  "mobileOverflow": false,
+  "result": "passed",
+  "tlsNote": "Browser trusts the execution proxy only for this test; application TLS handling is unchanged."
+}

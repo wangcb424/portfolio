@@ -10,6 +10,11 @@
 - 本地模型：198 条合成训练句；冻结后独立 56 条合成问题评估 50 条分类正确。详见 `assistant-model/README.md`，此结果不代表真实用户准确率或整个助手正确率。
 - 模型 Python / TypeScript 对 318 个输入的结果一致，可确定性重训；不调用外部推理 API，无 WebGPU 或大模型下载要求。
 - Linux 截图环境没有 CJK 字体，中文 DOM 文本和交互断言正确；不把它说成真机中文字体或 Safari 验证。
+- 新助手发布提交 `61ce6bef33fa21154194eb69f72eb7f2a42877fe` 的 [完整 GitHub CI](https://github.com/wangcb424/portfolio/actions/runs/36957961104) 全部成功，包括既有 Java / PostgreSQL、全栈浏览器、Pages/PWA、免费版与代理检查，以及新增的 23 项助手单元测试和 8 项助手浏览器测试。
+- [GitHub Pages 部署](https://github.com/wangcb424/portfolio/actions/runs/36957960952) 成功，普通 curl HTTPS 验证返回 HTTP 200；生产资源为 `index-D2mw_z3Y.js`。
+- 2026-10-02 03:01 UTC 的生产匿名浏览器验收通过：两个全新 Chromium context 初始 Cookie 均为 0，无登录要求；助手查询返回 Fall 2026（202710）CS3100 的 3 个班，显式 Track 保存关注，另一访客关注列表独立；9 次 API 响应均为 HTTP 200，无脚本错误或桌面/手机尺寸横向溢出。余位 2、6、1 仅为当时快照。
+- 当前接口返回的 30 个学期中没有 Spring 2027。助手明确说明可能尚未发布或列表不完整，未改查其他学期；该问题的课程查询次数为 0，未显示席位数字。Spring 2099 的未公布学期检查同样通过。
+- 生产证据见 [assistant-production-2026-10-02.json](assistant-production-2026-10-02.json)，可用 `node frontend/verify-live-assistant.mjs` 复查。浏览器测试仅为 Chromium 桌面/手机尺寸模拟，并对执行环境代理证书作测试 context 例外；产品证书处理未改变。
 
 以下为首次上线时的原有完整验证记录。
 
