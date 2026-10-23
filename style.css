@@ -27,6 +27,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 90px;
 }
 
 body {
@@ -40,6 +41,11 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+a:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
 }
 
 img {
@@ -57,6 +63,7 @@ img {
 }
 
 .card {
+  min-width: 0;
   background: var(--panel);
   border: 1px solid var(--line-soft);
   box-shadow: var(--shadow);
@@ -385,6 +392,13 @@ h3 {
   color: var(--muted);
 }
 
+.contact-item a {
+  color: var(--accent);
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -437,6 +451,10 @@ h3 {
 .project-card h3 {
   font-size: 1.18rem;
   margin-bottom: 8px;
+}
+
+.project-card p {
+  margin-bottom: 16px;
 }
 
 .project-links {
@@ -551,6 +569,10 @@ h3 {
 }
 
 @media (max-width: 700px) {
+  html {
+    scroll-padding-top: 170px;
+  }
+
   .nav-inner,
   .footer-card {
     flex-direction: column;
@@ -574,5 +596,17 @@ h3 {
   .back-to-top {
     right: 14px;
     bottom: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
   }
 }

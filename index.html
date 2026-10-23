@@ -4,13 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Changbo Wang | Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="Changbo Wang — Northeastern CS and Game Development student building web apps, applied AI features, and Unity games. Seeking a January–June 2027 co-op." />
+  <link rel="stylesheet" href="style.css?v=20261023" />
 </head>
 <body>
   <header class="navbar">
     <div class="container nav-inner">
       <a href="#top" class="brand">Changbo Wang</a>
-      <nav class="nav-links">
+      <nav class="nav-links" aria-label="Main navigation">
         <a href="#about">About</a>
         <a href="#resume">Resume</a>
         <a href="#projects">Projects</a>
@@ -24,14 +25,14 @@
     <section class="hero">
       <div class="container hero-grid">
         <div class="card hero-main">
-          <div class="eyebrow">Portfolio Website</div>
+          <div class="eyebrow">Seeking a January–June 2027 Co-op</div>
 
           <h1>Hi, I'm <span class="hero-name">Changbo Wang</span></h1>
 
           <p class="hero-text">
             I am a Northeastern University student majoring in Computer Science and Game Development.
-            I build websites, games, and interactive digital experiences with a focus on clean structure,
-            user experience, and creative problem-solving.
+            I build React web apps, Java/Spring Boot services, and Unity games, including
+            an in-browser course assistant and LLM-powered game AI.
           </p>
 
           <div class="hero-actions">
@@ -61,7 +62,7 @@
 
           <div class="side-title">Quick Profile</div>
           <p class="side-subtitle">
-            Student developer interested in web development, game development, and interactive design.
+            Boston-based student developer working across web development, applied AI, and game systems.
           </p>
 
           <div class="mini-grid">
@@ -79,7 +80,7 @@
             </div>
             <div class="mini-item">
               <small>Focus</small>
-              <div>Web Development · Games · Interactive Design</div>
+              <div>Software Development · Applied AI · Games</div>
             </div>
           </div>
         </aside>
@@ -101,16 +102,16 @@
           <div class="card info-card">
             <h3>Introduction</h3>
             <p>
-              I am a student developer with experience across web projects, interactive design,
-              and programming. I like turning ideas into polished projects that can be explored,
-              tested, and shared online. I am especially interested in roles where I can keep
-              growing as a developer while creating meaningful user-facing work.
+              I turn ideas into browser-ready projects, from course search tools to playable games.
+              I currently build responsive React/Vite features for a K–12 learning game with
+              Northeastern University / Zhongmiao. Across my projects, I focus on clear interfaces,
+              reliable state handling, and automated and browser-based testing.
             </p>
           </div>
 
           <div class="card info-card">
             <h3>Technical Skills</h3>
-            <p>Tools and technologies I use most often.</p>
+            <p>Languages, frameworks, and testing tools used across my projects.</p>
             <div class="skills">
               <span class="tag">Python</span>
               <span class="tag">Java</span>
@@ -121,6 +122,7 @@
               <span class="tag">React</span>
               <span class="tag">Spring Boot</span>
               <span class="tag">PostgreSQL</span>
+              <span class="tag">SQL</span>
               <span class="tag">HTML</span>
               <span class="tag">CSS</span>
               <span class="tag">Unity</span>
@@ -128,7 +130,8 @@
               <span class="tag">GitHub Actions</span>
               <span class="tag">JUnit</span>
               <span class="tag">Playwright</span>
-              <span class="tag">AWS</span>
+              <span class="tag">Docker Compose</span>
+              <span class="tag">Flyway</span>
               <span class="tag">REST APIs</span>
               <span class="tag">Figma</span>
               <span class="tag">VS Code</span>
@@ -157,7 +160,7 @@
               </div>
               <div class="resume-item">
                 <strong>Expected Graduation</strong>
-                <span>May 2028</span>
+                <span>May 2028 · GPA: 3.68</span>
               </div>
               <div class="resume-item">
                 <strong>Academic Interests</strong>
@@ -171,20 +174,20 @@
             <div class="resume-list">
               <div class="resume-item">
                 <strong>Seeking</strong>
-                <span>Internships, collaborations, and project opportunities</span>
+                <span>A January–June 2027 co-op in software development, applied AI, or game development</span>
               </div>
               <div class="resume-item">
                 <strong>Strengths</strong>
-                <span>Creative problem-solving, project-based learning, and iterative development</span>
+                <span>Responsive interfaces, reliable application state, and automated testing</span>
               </div>
               <div class="resume-item">
-                <strong>Portfolio Direction</strong>
-                <span>Web development, interactive experiences, and game-related projects</span>
+                <strong>Current Work</strong>
+                <span>Frontend Engineer at Northeastern University / Zhongmiao</span>
               </div>
             </div>
 
             <div class="hero-actions">
-              <a class="btn btn-primary" href="Changbo_Wang_Resume.pdf?v=20261002-courseflow-ai" target="_blank" rel="noopener noreferrer">Download Resume</a>
+              <a class="btn btn-primary" href="Changbo_Wang_Resume.pdf?v=20261023" target="_blank" rel="noopener noreferrer">Download Resume</a>
             </div>
           </div>
         </div>
@@ -224,24 +227,28 @@
               <span>C#</span>
               <span>WebGL</span>
               <span>Turn-Based Combat</span>
+              <span>LLM Integration</span>
               <span>Save / Load</span>
             </div>
           </article>
 
           <article class="card project-card">
-            <div class="project-top">Public Course Seat Tracker</div>
+            <div class="project-top">Course Seat Tracker &amp; AI Assistant</div>
             <h3>CourseFlow</h3>
             <p>
               A responsive React/TypeScript PWA for searching Northeastern course seats
               using public Banner data. The free app supports local watchlists, seat
               thresholds, history, and alerts, with checks while the page is visible.
-              No account is required.
+              No account is required. A 116 KB bilingual TF-IDF intent classifier, trained
+              in Python and deployed in-browser, grounds replies in validated course queries
+              without external LLM calls.
             </p>
             <p>
               A separate Java/Spring Boot edition adds PostgreSQL-backed accounts,
-              email-code login, shared course polling, and notification retries.
-              JUnit, proxy, and Playwright tests cover account isolation, persistence,
-              and offline fallback, with PostgreSQL integration in GitHub Actions.
+              email-code login, session/CSRF protection, per-user watchlists, shared polling,
+              and a transactional notification outbox with retries. JUnit, proxy, and Playwright
+              tests cover isolation, retry handling, and unpublished terms, including 31 assistant
+              checks and PostgreSQL integration in GitHub Actions.
             </p>
             <div class="project-links">
               <a class="mini-link" href="courseflow/">Open CourseFlow</a>
@@ -249,6 +256,7 @@
             </div>
             <div class="project-tags">
               <span>React</span><span>TypeScript</span><span>PWA</span>
+              <span>Python / TF-IDF</span><span>In-Browser AI</span>
               <span>Java / Spring Boot</span><span>PostgreSQL</span><span>Playwright</span>
             </div>
           </article>
@@ -259,9 +267,10 @@
 
             <h3>The Garbage Man</h3>
             <p>
-              A Unity game project with a playable browser build published on Unity Play.
-              This project demonstrates gameplay implementation, interactive systems,
-              scene-building, and the process of preparing a game project for public release.
+              A browser-playable 3D top-down roguelike built in Unity. Interchangeable movement
+              and weapon prefabs compose enemy behavior around shared health and damage logic.
+              A persistent run manager and PlayerPrefs checkpoints restore level progression,
+              health, currency, and upgrades across scenes and play sessions.
             </p>
 
             <div class="project-links">
@@ -281,9 +290,9 @@
             <div class="project-top">Heartline UX Case Study</div>
             <h3>Heartline — UX Case Study</h3>
             <p>
-              A standalone case study website documenting the full UX process for Heartline:
-              needfinding, lo-fi prototyping, hi-fi prototyping, user testing,
-              iteration decisions, and next-step improvements.
+              A responsive UX case-study website for a student friendship prototype,
+              documenting user research, eight prototype screens, Figma embeds, and usability
+              findings from lo-fi exploration through hi-fi testing and iteration.
             </p>
 
             <div class="project-links">
@@ -392,20 +401,22 @@
         <div class="card timeline-card">
           <div class="timeline">
             <div class="timeline-item">
-              <h3>Freelance Web Designer & Developer</h3>
-              <div class="meta">Fiverr</div>
+              <h3>Frontend Engineer</h3>
+              <div class="meta">Northeastern University / Zhongmiao · Boston, MA · Oct 2026–Present</div>
               <p>
-                Designed and developed website-based work for clients, building practical experience
-                with layout, structure, presentation, and client-oriented iteration.
+                Develop responsive React/Vite features for a K–12 learning game, translating
+                curriculum and gameplay requirements into browser-ready experiences.
+                Verify behavior with automated and browser-based QA.
               </p>
             </div>
 
             <div class="timeline-item">
               <h3>Information Technology Intern</h3>
-              <div class="meta">Innospire Solutions Inc.</div>
+              <div class="meta">Innospire Solutions Inc. · Queens, NY · Sep–Dec 2023</div>
               <p>
-                Supported technical tasks and gained experience in professional problem-solving,
-                software-related workflows, and collaborative project environments.
+                Supported requirements analysis and technical specifications for business
+                applications; contributed to implementation, testing, and troubleshooting
+                to address operational software needs.
               </p>
             </div>
 
@@ -438,27 +449,27 @@
             <div class="contact-list">
               <div class="contact-item">
                 <strong>School Email</strong>
-                <span>wang.changb@northeastern.edu</span>
+                <a href="mailto:wang.changb@northeastern.edu">wang.changb@northeastern.edu</a>
               </div>
 
               <div class="contact-item">
                 <strong>Personal Email</strong>
-                <span>wcb424@gmail.com</span>
+                <a href="mailto:wcb424@gmail.com">wcb424@gmail.com</a>
               </div>
 
               <div class="contact-item">
                 <strong>Phone</strong>
-                <span>929-417-6238</span>
+                <a href="tel:+19294176238">929-417-6238</a>
               </div>
 
               <div class="contact-item">
                 <strong>GitHub</strong>
-                <span>github.com/wangcb424</span>
+                <a href="https://github.com/wangcb424" target="_blank" rel="noopener noreferrer">github.com/wangcb424</a>
               </div>
 
               <div class="contact-item">
                 <strong>LinkedIn</strong>
-                <span>linkedin.com/in/changbo-wang04</span>
+                <a href="https://www.linkedin.com/in/wcb424" target="_blank" rel="noopener noreferrer">linkedin.com/in/wcb424</a>
               </div>
             </div>
           </div>
@@ -466,13 +477,13 @@
           <div class="card contact-card">
             <h3>Let’s Connect</h3>
             <p>
-              I am open to internships, collaborations, and new project opportunities.
+              I am seeking a January–June 2027 co-op in software development, applied AI, or game development.
               The easiest way to reach me is by email or LinkedIn.
             </p>
 
             <div class="hero-actions">
               <a class="btn btn-primary" href="mailto:wang.changb@northeastern.edu">Send Email</a>
-              <a class="btn btn-secondary" href="https://www.linkedin.com/in/changbo-wang04/" target="_blank" rel="noopener noreferrer">View LinkedIn</a>
+              <a class="btn btn-secondary" href="https://www.linkedin.com/in/wcb424" target="_blank" rel="noopener noreferrer">View LinkedIn</a>
             </div>
           </div>
         </div>
@@ -494,3 +505,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+
