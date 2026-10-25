@@ -1,6 +1,7 @@
 import {useEffect,useRef,useState,type FormEvent,type ReactNode} from 'react';
 import {api,dateTime,type SearchResult,type Seat,type Term,type Watch} from './api';
 import {answerQuestion,type AssistantContext,type AssistantConversationContext,type AssistantReply,type AssistantServices} from './assistant/engine';
+import {rememberSearch} from './freeStore';
 
 type Message={id:number;role:'user'|'assistant';text:string;reply?:AssistantReply;failed?:boolean};
 type Props={active:boolean;context:AssistantContext;renderSeat:(seat:Seat)=>ReactNode};
@@ -35,7 +36,10 @@ export default function Assistant({active,context,renderSeat}:Props){
     const requestGeneration=generation.current;
     append({id:++sequence.current,role:'user',text});
     try{
-      const reply=await answerQuestion(text,context,services,previous.current);
+      const reply=await answerQuestion(text,context,{...services,search:(term,course)=>{
+        rememberSearch(term,course,context.terms.find(item=>item.code===term)?.description||term);
+        return services.search(term,course);
+      }},previous.current);
       if(requestGeneration!==generation.current)return;
       if(reply.context)previous.current=reply.context;
       append({id:++sequence.current,role:'assistant',text:reply.text,reply});
@@ -71,7 +75,7 @@ export default function Assistant({active,context,renderSeat}:Props){
       </div>
       <div className="assistant-compose">
         <div className="assistant-suggestions" aria-label="Suggested questions">{suggestions.map(question=><button key={question} type="button" disabled={pending} onClick={()=>void ask(question)}>{question}</button>)}</div>
-        <form onSubmit={submit}><label htmlFor="assistant-question">Ask in English or 中文</label><div className="assistant-input-row"><textarea id="assistant-question" ref={composer} value={input} onChange={event=>setInput(event.target.value)} maxLength={500} rows={2} placeholder="e.g. CS3100 有空位吗？" onKeyDown={event=>{if(event.key==='Enter'&&!event.shiftKey&&!event.nativeEvent.isComposing){event.preventDefault();void ask(input);}}}/><button className="primary" disabled={pending||!input.trim()} type="submit">{pending?'Checking…':'Send ↗'}</button></div><p className="assistant-privacy">Chat stays in memory; refreshing clears it. Course codes and terms go to the public lookup service. Clearing chat keeps your saved watches. <span>{input.length}/500</span></p></form>
+        <form onSubmit={submit}><label htmlFor="assistant-question">Ask in English or 中文</label><div className="assistant-input-row"><textarea id="assistant-question" ref={composer} value={input} onChange={event=>setInput(event.target.value)} maxLength={500} rows={2} placeholder="e.g. CS3100 有空位吗？" onKeyDown={event=>{if(event.key==='Enter'&&!event.shiftKey&&!event.nativeEvent.isComposing){event.preventDefault();void ask(input);}}}/><button className="primary" disabled={pending||!input.trim()} type="submit">{pending?'Checking…':'Send ↗'}</button></div><p className="assistant-privacy">Chat clears on refresh. Queried course codes and terms are saved in Recent searches on this browser and sent to the public lookup service. Clear search history in Explore. Clearing chat keeps watches and searches. <span>{input.length}/500</span></p></form>
       </div>
     </div>
   </section>;

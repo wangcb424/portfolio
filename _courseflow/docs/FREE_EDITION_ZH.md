@@ -7,9 +7,11 @@
 - 中英文课程助手：通过本地意图模型识别问题，查询真实席位或解释功能；无需模型 API key，详见 [助手说明](AI_ASSISTANT_ZH.md)。
 - 选择学期，输入课程代码，按 section / CRN 查看真实公开数据。
 - 在当前浏览器保存最多 20 个关注，设置席位提醒阈值，暂停、恢复和删除。
+- 自动保存最近 20 条搜索，按“学期＋课程”去重；重新打开时恢复上次的课程、学期或 watchlist 页面。点击历史条目会重新查询，不把历史当作当前席位。
+- 在 Explore 的 Recent searches 中删除单条或清空搜索记录，不会删除关注。
 - 网页保持打开时约每 5 分钟检查一次；网络、浏览器后台节流和学校响应会影响实际时间。
 - 检查时出现席位变化，保存本机历史记录并生成站内提醒；浏览器支持且你授权时可显示系统通知。
-- 导出关注列表，在另一台设备导入。导入的是关注配置，席位会重新查询，不把文件中的旧数字当成实时数据。
+- 导出关注列表和搜索记录，在另一台设备导入。新备份格式为 v2，也兼容旧版 v1 关注文件。导入的是关注配置，席位会重新查询，不把文件中的旧数字当成实时数据。
 
 这里的“所有人可以使用”指公开匿名访问，不意味着无限并发、兼容所有古老浏览器或保证每条提醒送达。建议使用较新的 Chrome、Edge、Firefox 或 Safari；实际已测试环境见 `VERIFICATION.md`。
 
@@ -27,13 +29,19 @@
 
 手机锁屏、浏览器关闭、系统休眠或后台标签页被冻结时，免费版无法保证继续检查。浏览器通知权限不等于后台推送服务。重新打开页面后会重新检查关注，不会补造关闭期间未观察到的历史。
 
-清除浏览器数据会清除该设备的关注和提醒。私人/无痕模式可能不持久保存。多人共用同一个浏览器用户配置时会共用这份本机数据；需要隔离时应使用各自的浏览器配置。
+清除浏览器数据会清除该设备的关注、搜索记录和提醒。私人/无痕模式可能不持久保存。多人共用同一个浏览器用户配置时会共用这份本机数据；需要隔离时应使用各自的浏览器配置。
 
 ## 数据与隐私
 
-查询接口只接收学期和课程代码，不接收学校密码、注册凭据或用户邮箱。浏览器为检查关注，会把对应的公开学期/课程参数发给代理；接口会暂时缓存这些公开课程数据。关注列表、提醒阈值、历史和站内提醒保留在设备上。
+查询接口只接收学期和课程代码，不接收学校密码、注册凭据或用户邮箱。浏览器为检查关注，会把对应的公开学期/课程参数发给代理；接口会暂时缓存这些公开课程数据。关注列表、最近搜索、提醒阈值、席位变化历史和站内提醒默认保留在设备上。初次打开的默认查询、定时关注检查不会填充搜索历史；用户主动查询（包括助手查课）才会记录课程和学期。
 
 学校的公开席位是快照，不代表你符合先修课、专业保留席位、联动 section 或其他选课条件。注册仍在学校系统完成。接口出错或数据过期会明确显示未知/需要更新，不会把失败转换成“0 个空位”。
+
+## 可选 AWS 云备份
+
+已提供 Lambda + DynamoDB + IAM + SAM 实现与测试，见 [AWS 部署与学习说明](../aws/README_ZH.md)。当前公开版没有配置 AWS，不会产生 AWS 请求或账单。
+
+部署者配置 `VITE_AWS_BACKUP_URL` 后，My watchlist 才显示 Save / Restore / Delete cloud backup。操作必须由用户点击；不保存完整聊天、席位快照或学校账号。云备份用本浏览器的随机密钥隔离，清空浏览器数据会失去这份云备份的访问密钥；跨设备仍使用导出/导入。它不是账号同步，也不提供关页后的监控。AWS 免费资格有期限和配额，不能承诺永久零费用。
 
 ## 技术与简历
 
@@ -49,7 +57,7 @@ Java / Spring Boot / PostgreSQL / Flyway / Redis / Docker 的完整版本保留�
 |---|---|---|
 | 1：显示页面 | `frontend/src/App.tsx`、样式文件 | React 如何把课程数据变成卡片；不同屏幕如何布局 |
 | 2：真实查询 | `frontend/src/freeApi.ts`、`public-query-proxy/worker.mjs` | 浏览器为什么通过代理读取学校接口；匿名 session 与学校账号的区别 |
-| 3：保存关注 | `frontend/src/freeStore.ts` | term + CRN 为什么共同标识一个 section；localStorage 为什么只能保存本机数据 |
+| 3：保存关注和搜索 | `frontend/src/freeStore.ts`、`SearchHistory.tsx` | term + CRN 为什么共同标识一个 section；localStorage 为什么只能保存本机数据 |
 | 4：检查与提醒 | `checkLocalWatches()`、`observe()` | 按课程去重查询；阈值由不满足变成满足才提醒；失败为什么不能当成 0 |
 | 5：部署 | `frontend/vite.config.ts`、`public/sw.js`、GitHub Pages | 网站路径、跨域 CORS、PWA 缓存与真实数据刷新分别解决什么问题 |
 | 6：自动化验证 | `frontend/tests-free/`、`frontend/tests/`、代理测试、Java 测试 | 模拟数据用于验证逻辑；真实公开查询另行验收；桌面模拟不等于所有手机真机 |
@@ -65,7 +73,7 @@ Java / Spring Boot / PostgreSQL / Flyway / Redis / Docker 的完整版本保留�
 ```sh
 VITE_FREE_MODE=true \
 VITE_PUBLIC_API_URL=https://courseflow-public-query.hkz4sxp6x5.chatgpt.site \
-VITE_BASE_PATH=/portfolio/courseflow/ npm run build
+VITE_BASE_PATH=/portfolio/courseflow/ VITE_AWS_BACKUP_URL= npm run build
 ```
 
 将 `dist/` 内容放到 portfolio 仓库的 `courseflow/`；完整源码放在 `_courseflow/`。GitHub Pages 使用 main 分支根目录发布。改变域名时也要更新代理的 CORS 白名单。默认不设置这些变量的构建仍然连接同源 Java `/api`。

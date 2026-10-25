@@ -1,13 +1,20 @@
 import type {Notice,Seat,Watch} from './api';
 
 export type Sample={available:number;capacity:number;checkedAt:string};
-type State={version:1;watches:Watch[];notices:Notice[];history:Record<string,Sample[]>;lastPoll:string|null};
+export type SavedSearch={term:string;code:string;termLabel:string;searchedAt:string};
+type State={version:1;watches:Watch[];notices:Notice[];history:Record<string,Sample[]>;lastPoll:string|null;searches:SavedSearch[];lastPage:'explore'|'watchlist'};
 export type WatchConfig={term:string;code:string;crn:string;threshold:number;enabled:boolean};
 const KEY='courseflow.free.v1';
 const STALE_MS=900000;
-const empty=():State=>({version:1,watches:[],notices:[],history:{},lastPoll:null});
+const empty=():State=>({version:1,watches:[],notices:[],history:{},lastPoll:null,searches:[],lastPage:'explore'});
 const object=(value:unknown):value is Record<string,unknown>=>!!value&&typeof value==='object'&&!Array.isArray(value);
 const stamp=(value:unknown):value is string=>typeof value==='string'&&Number.isFinite(Date.parse(value));
+export function validSearch(value:unknown):value is SavedSearch {
+  return object(value)&&typeof value.term==='string'&&/^\d{6}$/.test(value.term)&&typeof value.code==='string'&&/^[A-Z]{2,6}\d{4}[A-Z]?$/.test(value.code)&&typeof value.termLabel==='string'&&value.termLabel.length<=200&&stamp(value.searchedAt);
+}
+function cleanSearches(values:unknown[]):SavedSearch[]{
+  return values.filter(validSearch).sort((a,b)=>Date.parse(b.searchedAt)-Date.parse(a.searchedAt)).filter((item,index,all)=>all.findIndex(other=>other.term===item.term&&other.code===item.code)===index).slice(0,20);
+}
 let warning='';
 let memoryOnly=false;
 let memory=JSON.stringify(empty());
@@ -28,7 +35,7 @@ function validNotice(value:unknown):value is Notice {
 function load():State {
   let raw:string|null;
   if(memoryOnly)raw=memory;
-  else try{raw=localStorage.getItem(KEY);}catch{memoryOnly=true;warning='Site storage is blocked. Watches are saved only in memory for this tab and will be lost on reload. Export a backup before leaving.';raw=memory;}
+  else try{raw=localStorage.getItem(KEY);}catch{memoryOnly=true;warning='Site storage is blocked. Watches and searches are saved only in memory for this tab and will be lost on reload. Export a backup before leaving.';raw=memory;}
   if(!raw)return empty();
   try{
     if(raw.length>2000000)throw new Error();
@@ -41,13 +48,13 @@ function load():State {
       history[watch.sectionId]=Array.isArray(rows)?rows.filter(row=>object(row)&&Number.isInteger(row.available)&&Number.isInteger(row.capacity)&&stamp(row.checkedAt)).slice(-100) as Sample[]:[];
     }
     if(watches.length!==data.watches.length)warning='Some invalid saved entries were ignored. Import a backup if a course is missing.';
-    return {version:1,watches,history,notices:data.notices.filter(validNotice).slice(0,100),lastPoll:stamp(data.lastPoll)?data.lastPoll:null};
+    return {version:1,watches,history,notices:data.notices.filter(validNotice).slice(0,100),lastPoll:stamp(data.lastPoll)?data.lastPoll:null,searches:cleanSearches(Array.isArray(data.searches)?data.searches:[]),lastPage:data.lastPage==='watchlist'?'watchlist':'explore'};
   }catch{warning='Saved data could not be read. Your next change will start a new watchlist; import a backup if you have one.';return empty();}
 }
 function save(state:State){
   memory=JSON.stringify(state);
   if(!memoryOnly)try{localStorage.setItem(KEY,memory);}
-  catch{memoryOnly=true;warning='Site storage is full or blocked. Watches are saved only in memory for this tab and will be lost on reload. Export a backup before leaving.';}
+  catch{memoryOnly=true;warning='Site storage is full or blocked. Watches and searches are saved only in memory for this tab and will be lost on reload. Export a backup before leaving.';}
   window.dispatchEvent(new Event('courseflow-local-change'));
 }
 function fresh(seat:Seat){const age=Date.now()-Date.parse(seat.checkedAt);return !seat.errorMessage&&age>=-300000&&age<=STALE_MS;}
@@ -76,6 +83,17 @@ export function localWatches(){return load().watches;}
 export function localNotices(){return load().notices;}
 export function localHistory(id:string){return load().history[id]||[];}
 export function lastPoll(){return load().lastPoll;}
+export function savedSearches(){return load().searches;}
+export function savedPage(){return load().lastPage;}
+export function rememberPage(page:'explore'|'watchlist'){const state=load();if(state.lastPage===page)return;state.lastPage=page;save(state);}
+export function rememberSearch(term:string,query:string,termLabel=term){
+  const item={term,code:query.replace(/\s+/g,'').toUpperCase(),termLabel:termLabel.slice(0,200),searchedAt:new Date().toISOString()};
+  if(!validSearch(item))return;
+  const state=load();state.searches=[item,...state.searches.filter(other=>other.term!==term||other.code!==item.code)].slice(0,20);save(state);
+}
+export function removeSearch(term:string,code:string){const state=load();state.searches=state.searches.filter(item=>item.term!==term||item.code!==code);save(state);}
+export function clearSearches(){const state=load();state.searches=[];save(state);}
+export function mergeSearches(searches:SavedSearch[]){const state=load();state.searches=cleanSearches([...state.searches,...searches]);save(state);}
 export function markRead(){const state=load();state.notices.forEach(notice=>notice.readAt||=new Date().toISOString());save(state);}
 export function addWatch(seat:Seat,threshold=1,enabled=true){
   if(!validSeat(seat)||!validConfig({...seat,threshold,enabled}))throw new Error('Search for a valid section before adding it.');
@@ -112,12 +130,14 @@ export function failed(term:string,code:string){
 }
 export function finishPoll(){const state=load();state.lastPoll=new Date().toISOString();save(state);}
 export function exportWatches(){
-  const watches=load().watches.map(w=>({term:w.section.term,code:w.section.code,crn:w.section.crn,threshold:w.threshold,enabled:w.enabled}));
-  return JSON.stringify({format:'courseflow-watchlist',version:1,exportedAt:new Date().toISOString(),watches},null,2);
+  const state=load(),watches=state.watches.map(w=>({term:w.section.term,code:w.section.code,crn:w.section.crn,threshold:w.threshold,enabled:w.enabled}));
+  return JSON.stringify({format:'courseflow-watchlist',version:2,exportedAt:new Date().toISOString(),watches,searches:state.searches},null,2);
 }
-export function parseImport(text:string):WatchConfig[]{
+export function parseBackup(text:string):{watches:WatchConfig[];searches:SavedSearch[]}{
   if(text.length>100000)throw new Error('Choose a CourseFlow JSON backup smaller than 100 KB.');
   let data:unknown;try{data=JSON.parse(text);}catch{throw new Error('This file is not valid JSON.');}
-  if(!object(data)||data.format!=='courseflow-watchlist'||data.version!==1||!Array.isArray(data.watches)||data.watches.length>20||!data.watches.every(validConfig))throw new Error('This is not a valid CourseFlow watchlist backup (maximum 20 sections).');
-  return data.watches.map(({term,code,crn,threshold,enabled}:WatchConfig)=>({term,code,crn,threshold,enabled}));
+  if(!object(data)||data.format!=='courseflow-watchlist'||(data.version!==1&&data.version!==2)||!Array.isArray(data.watches)||data.watches.length>20||!data.watches.every(validConfig))throw new Error('This is not a valid CourseFlow watchlist backup (maximum 20 sections).');
+  if(data.version===2&&(!Array.isArray(data.searches)||data.searches.length>20||!data.searches.every(validSearch)))throw new Error('This backup contains invalid search history.');
+  return {watches:data.watches.map(({term,code,crn,threshold,enabled}:WatchConfig)=>({term,code,crn,threshold,enabled})),searches:data.version===2?cleanSearches(data.searches as unknown[]):[]};
 }
+export function parseImport(text:string):WatchConfig[]{return parseBackup(text).watches;}

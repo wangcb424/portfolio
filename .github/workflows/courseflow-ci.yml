@@ -55,6 +55,9 @@ jobs:
         working-directory: _courseflow/frontend
       - run: npm run test:assistant-unit && npm run test:assistant
         working-directory: _courseflow/frontend
+      - run: npm run test:backup
+        working-directory: _courseflow/frontend
+      - run: python -m unittest discover -s _courseflow/aws -p 'test_*.py' -v
       - run: npm test
         working-directory: _courseflow/public-query-proxy
       - uses: actions/upload-artifact@v4

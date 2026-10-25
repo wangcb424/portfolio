@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-25 — Returning users and optional AWS backup
+
+- Persist the latest 20 unique course/term queries, restore the last query or watchlist page, and retry with fresh course data.
+- Add individual removal and clear-history controls; retain existing v1 watches and support v1/v2 backup imports.
+- Include assistant-triggered course queries in local recent searches without saving full chats.
+- Implement optional Python Lambda/DynamoDB backup with a SAM template, scoped IAM, device-secret isolation, conditional writes and 90-day expiry.
+- Keep AWS disabled in the public build; no AWS infrastructure was deployed. Add frontend/backend checks and deployment/cost documentation.
+
 ## 2026-10-02 — On-device course assistant
 
 - Added a bilingual course assistant using a small local intent classification model and validated course lookup tools.

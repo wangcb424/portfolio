@@ -1,0 +1,91 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: CourseFlow optional device backup - review account free plan and quotas before deploying
+Parameters:
+  AllowedOrigin:
+    Type: String
+    Default: https://wangcb424.github.io
+    AllowedPattern: 'https://[A-Za-z0-9.-]+(:[0-9]+)?'
+Resources:
+  BackupTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PROVISIONED
+      TableClass: STANDARD
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      AttributeDefinitions:
+        - AttributeName: pk
+          AttributeType: S
+      KeySchema:
+        - AttributeName: pk
+          KeyType: HASH
+      TimeToLiveSpecification:
+        AttributeName: expiresAt
+        Enabled: true
+  BackupLogs:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub '/aws/lambda/${AWS::StackName}-backup'
+      RetentionInDays: 1
+  BackupRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: BackupTableAndLogs
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: ['dynamodb:GetItem', 'dynamodb:PutItem', 'dynamodb:DeleteItem']
+                Resource: !GetAtt BackupTable.Arn
+              - Effect: Allow
+                Action: ['logs:CreateLogStream', 'logs:PutLogEvents']
+                Resource: !GetAtt BackupLogs.Arn
+  BackupFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub '${AWS::StackName}-backup'
+      CodeUri: cloud/
+      Handler: app.handler
+      Runtime: python3.12
+      Architectures: [arm64]
+      MemorySize: 128
+      Timeout: 10
+      ReservedConcurrentExecutions: 2
+      Role: !GetAtt BackupRole.Arn
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref BackupTable
+          ALLOWED_ORIGIN: !Ref AllowedOrigin
+  BackupUrl:
+    Type: AWS::Lambda::Url
+    Properties:
+      AuthType: NONE
+      TargetFunctionArn: !GetAtt BackupFunction.Arn
+  UrlPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunctionUrl
+      FunctionName: !Ref BackupFunction
+      Principal: '*'
+      FunctionUrlAuthType: NONE
+  InvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref BackupFunction
+      Principal: '*'
+      InvokedViaFunctionUrl: true
+Outputs:
+  BackupApiUrl:
+    Description: Optional frontend VITE_AWS_BACKUP_URL (omit trailing slash)
+    Value: !GetAtt BackupUrl.FunctionUrl

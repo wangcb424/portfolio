@@ -1,0 +1,68 @@
+// Read-only public queries; all watch/history changes use a disposable browser profile.
+import {chromium,devices} from 'playwright';
+import assert from 'node:assert/strict';
+const url=process.env.COURSEFLOW_TEST_URL||'https://wangcb424.github.io/portfolio/courseflow/';
+const proxy=process.env.HTTPS_PROXY||process.env.https_proxy;
+const browser=await chromium.launch({headless:true,...(proxy?{proxy:{server:proxy}}:{})});
+const report={url,checkedAt:new Date().toISOString(),apiResponses:[],errors:[],awsRequests:0};
+function instrument(page){
+  page.on('pageerror',error=>report.errors.push(error.message));
+  page.on('request',request=>{if(new URL(request.url()).hostname.includes('.lambda-url.'))report.awsRequests++;});
+  page.on('response',response=>{if(response.url().includes('/api/'))report.apiResponses.push({url:response.url(),status:response.status()});});
+}
+const options={ignoreHTTPSErrors:Boolean(proxy)};
+try{
+  const context=await browser.newContext({...options,viewport:{width:1440,height:1000}});
+  assert.equal((await context.cookies()).length,0);
+  let page=await context.newPage();instrument(page);
+  await page.goto(url,{waitUntil:'domcontentloaded',timeout:60000});
+  await page.locator('.seat-card:visible').first().waitFor({timeout:90000});
+  assert.equal(await page.getByRole('button',{name:'Sign in',exact:true}).count(),0);
+  assert.equal(await page.locator('.recent-search-list li').count(),0);
+  report.term=await page.getByRole('combobox',{name:/^Term/}).inputValue();
+  await page.getByRole('button',{name:'Find sections'}).click();
+  await page.locator('.seat-card:visible').first().waitFor({timeout:90000});
+  assert.equal(await page.locator('.recent-search-list li').count(),1);
+  await page.locator('.seat-card:visible').first().getByRole('button',{name:'Track this section'}).click();
+  await page.getByRole('button',{name:'Open saved watchlist (1)'}).waitFor();
+  report.savedCourse=await page.getByRole('textbox',{name:'Course code'}).inputValue();
+  report.historySnapshot=await page.locator('.recent-search-list li').allTextContents();
+  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
+  await page.close();
+  const before=report.apiResponses.filter(r=>r.url.includes('/api/catalog/sections')).length;
+  page=await context.newPage();instrument(page);
+  await page.goto(url,{waitUntil:'domcontentloaded',timeout:60000});
+  await page.locator('.seat-card:visible').first().waitFor({timeout:90000});
+  assert.equal(await page.getByRole('textbox',{name:'Course code'}).inputValue(),report.savedCourse);
+  assert.equal(await page.getByRole('combobox',{name:/^Term/}).inputValue(),report.term);
+  assert.equal(await page.locator('.recent-search-list li').count(),1);
+  assert(report.apiResponses.filter(r=>r.url.includes('/api/catalog/sections')).length>before);
+  report.restoredQueryWithFreshLookup=true;
+  await page.getByRole('button',{name:'Open saved watchlist (1)'}).click();
+  await page.getByRole('heading',{name:'1 tracked sections'}).waitFor();
+  assert.equal(await page.getByRole('region',{name:'Optional AWS cloud backup'}).count(),0);
+  await page.close();
+  page=await context.newPage();instrument(page);
+  await page.goto(url,{waitUntil:'domcontentloaded',timeout:60000});
+  await page.getByRole('heading',{name:'My watchlist.'}).waitFor();
+  await page.getByRole('heading',{name:'1 tracked sections'}).waitFor();
+  report.restoredWatchlistPage=true;
+  await context.close();
+  const other=await browser.newContext({...devices['iPhone 13'],...options});
+  assert.equal((await other.cookies()).length,0);
+  const phone=await other.newPage();instrument(phone);
+  await phone.goto(url,{waitUntil:'domcontentloaded',timeout:60000});
+  await phone.locator('.seat-card:visible').first().waitFor({timeout:90000});
+  assert.equal(await phone.locator('.recent-search-list li').count(),0);
+  await phone.getByRole('button',{name:'My watchlist'}).click();
+  await phone.getByRole('heading',{name:'Your next semester starts here'}).waitFor();
+  report.isolatedAnonymousVisitor=true;
+  assert.equal(await phone.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false);
+  await other.close();
+  assert.deepEqual(report.errors,[]);
+  assert.equal(report.awsRequests,0);
+  assert(report.apiResponses.length>0&&report.apiResponses.every(r=>r.status===200));
+  report.result='passed';
+  report.tlsNote=proxy?'Test context trusts the execution proxy; production TLS handling is unchanged.':'Default browser TLS validation.';
+  console.log(JSON.stringify(report,null,2));
+}finally{await browser.close();}

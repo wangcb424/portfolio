@@ -1,5 +1,5 @@
 import type {SearchResult,Seat,Status} from './api';
-import {addWatch,editWatch,failed,finishPoll,lastPoll,localHistory,localNotices,localWatches,markRead,observe,parseImport,recordStorageWarning,removeWatch,validSeat} from './freeStore';
+import {addWatch,editWatch,failed,finishPoll,lastPoll,localHistory,localNotices,localWatches,markRead,observe,parseBackup,mergeSearches,recordStorageWarning,removeWatch,validSeat} from './freeStore';
 
 const PUBLIC_URL=import.meta.env.VITE_PUBLIC_API_URL||'';
 const catalog=new Map<string,Seat>();
@@ -74,7 +74,7 @@ export function checkLocalWatches():Promise<{checked:number;failed:number}>{
   })().finally(()=>{checking=undefined;});return checking;
 }
 export async function importWatches(text:string){
-  const configs=parseImport(text),existing=new Set(localWatches().map(w=>`${w.section.term}:${w.section.crn}`));
+  const backup=parseBackup(text),configs=backup.watches,existing=new Set(localWatches().map(w=>`${w.section.term}:${w.section.crn}`));
   const unique=configs.filter((item,index,all)=>all.findIndex(other=>other.term===item.term&&other.crn===item.crn)===index&&!existing.has(`${item.term}:${item.crn}`));
   if(existing.size+unique.length>20)throw new Error('Import would exceed 20 sections. Remove some watches first.');
   const groups=new Map<string,SearchResult>();
@@ -86,5 +86,6 @@ export async function importWatches(text:string){
     return {item,seat};
   });
   for(const {item,seat} of seats)addWatch(seat,item.threshold,item.enabled);
+  mergeSearches(backup.searches);
   return seats.length;
 }

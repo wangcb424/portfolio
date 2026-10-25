@@ -13,11 +13,16 @@ The public edition requires no GitHub, ChatGPT, or university login. Each browse
 - Bilingual course assistant with an on-device intent classifier and grounded, read-only course tools; no model API key, account, WebGPU, or large model download. This is a focused assistant, not a general-purpose LLM. See [the assistant guide](docs/AI_ASSISTANT_ZH.md).
 - Real public Banner term/course lookup through a read-only server proxy.
 - Up to 20 local watches, thresholds, pause/resume, history, and in-app alerts.
+- The latest 20 course/term searches, saved-page restoration, retry/delete/clear controls, and backward-compatible watch/search backups.
 - Approximately five-minute checks while the page is visible and online; optional browser notifications.
 - Validated watchlist export/import for moving between devices; no account or database needed.
 - Responsive layout, PWA shell, clear stale/error states, and an explicit warning when storage is unavailable.
 
 The proxy implementation and tests are in `public-query-proxy/`. GitHub Pages serves static assets; it does not execute Java. The deployed free edition does not use PostgreSQL, email, Redis, or a background notification server.
+
+## Optional AWS backup (implemented, not deployed)
+
+The `aws/` module provides a Python Lambda API, DynamoDB persistence, scoped IAM and an AWS SAM template. It uses explicit per-browser backup actions, random device keys, conditional writes and 90-day expiry. The public build leaves `VITE_AWS_BACKUP_URL` unset: no AWS requests or AWS charges are introduced. Local handler tests, frontend integration fixtures and CloudFormation lint have passed; live AWS deployment is not verified. See [the AWS guide](aws/README_ZH.md) for account eligibility, quotas, activation, cleanup and accurate resume wording. AWS free plans/quotas are not a promise of permanent zero cost.
 
 ## Java full edition (separate deployment)
 
@@ -83,6 +88,9 @@ npm run test:pages
 # Local intent/tool logic and bilingual assistant browser checks:
 npm run test:assistant-unit
 npm run test:assistant
+# Optional cloud backup, mocked at the network/database boundaries:
+npm run test:backup
+python -m unittest discover -s ../aws -p 'test_*.py' -v
 # Requires the jar built with frontend assets included:
 npm run test:e2e
 ```

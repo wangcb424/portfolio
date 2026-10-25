@@ -213,8 +213,8 @@ function faq(intent:string,free:boolean,zh:boolean):AssistantReply {
       '完整服务由服务器检查已关注课程；邮件或 Web Push 取决于部署者配置。演示模式只产生模拟提醒，不发送真实邮件。助手不会替你修改阈值或通知权限。',
       'The full service checks watched courses on its server. Email or Web Push depends on deployment configuration. Demo mode only creates simulated alerts and sends no real email. This assistant does not change thresholds or notification permissions.'],
     privacy:free?[
-      '免费版不需要学校账号或注册账号。关注和设置保存在当前浏览器；查询服务会收到你查询的课程代码、学期及通常的网络请求信息。不会自动跨设备同步，分享设备的人可能看到浏览器中的关注。课程助手的意图模型在设备上运行；问题原文不发送给外部 AI 服务。',
-      'The free version needs no school login or registration. Watches and settings stay in this browser; the lookup service receives course codes, terms, and ordinary network request information. There is no automatic cross-device sync, and people sharing this browser may see saved watches. The intent model runs on-device; your full question is not sent to an external AI service.']:[
+      '免费版不需要学校账号或注册账号。关注、搜索记录和设置默认保存在当前浏览器；可在 Explore 清空搜索记录。只有部署者启用云备份且你点击保存时才上传备份；查询服务会收到你查询的课程代码、学期及通常的网络请求信息。不会自动跨设备同步，分享设备的人可能看到浏览器中的关注和搜索记录。课程助手的意图模型在设备上运行；问题原文不发送给外部 AI 服务。',
+      'The free version needs no school login or registration. Watches, recent searches, and settings stay in this browser by default. Clear search history in Explore. Cloud backups are uploaded only if configured by the operator and you click Save; the lookup service receives course codes, terms, and ordinary network request information. There is no automatic cross-device sync, and people sharing this browser may see saved watches and searches. The intent model runs on-device; your full question is not sent to an external AI service.']:[
       '学校席位查询不需要学校账号。完整服务使用自己的邮箱账号保存并同步关注；具体保存方式取决于部署。课程助手的意图模型在设备上运行，问题原文不发送给外部 AI 服务。',
       'Public school-seat lookup does not need a school login. The full service uses its own email account to save and sync watches, with storage depending on deployment. The intent model runs on-device; full questions are not sent to an external AI service.'],
     help:[
