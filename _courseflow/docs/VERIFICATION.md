@@ -8,9 +8,13 @@
 - 可选 AWS 前端测试 2 项通过：未点击不请求云端、显式保存/恢复/删除、设备密钥不进入课程查询或导出文件、恢复后重新查余位；HTTP 云接口使用受控 fixture。
 - Python Lambda 单元测试 7 项通过：设备隔离、版本冲突、到期、删除、校验、请求大小、错误处理。DynamoDB 使用内存替身，未连接 AWS。
 - `cfn-lint aws/template.yaml` 通过；这不等于已在 CloudFormation 成功创建资源。
-- AWS 未部署、未配置公开前端 endpoint、未进行真实 AWS 集成或计费验证。
+- AWS 未部署、未配置公开前端 endpoint、未进行真实 AWS 集成或计费验证。新部署仍需检查账户免费资格、区域配额和实际资源创建。
 - 桌面/手机尺寸重新打开后的查询界面已截图检查；无横向溢出。执行环境缺 CJK 字体，截图中的中文是缺字方框，DOM 中文断言正常。
-- 免费生产 bundle 为 `index-B7ekJVQ3.js`；发布后可运行 `node frontend/verify-live-persistence.mjs` 验证匿名访问、重开恢复、真实查询和访客隔离。新部署仍需检查账户免费资格、区域配额和实际资源创建。
+- 本次 [完整 GitHub CI](https://github.com/wangcb424/portfolio/actions/runs/40239597138) 全部成功，包括 Java/PostgreSQL、全栈浏览器、默认 UI、Pages/PWA、免费版、助手、新增 AWS 备份测试及公开查询代理测试。
+- 发布提交 `fd286e0621cd56ee4d1015b58eeb0c8d842023f6` 的 [GitHub Pages 部署](https://github.com/wangcb424/portfolio/actions/runs/40239597048) 成功；匿名 HTTPS 返回正式网页 HTTP 200，生产 bundle 为 `index-B7ekJVQ3.js`。
+- 2026-10-25 22:19 UTC 的匿名生产浏览器验收通过：同一浏览器关闭重开后恢复课程、学期、搜索记录及 watchlist 页面，并重新查询余位；另一个全新访客的关注和搜索记录为空。10 次 API 响应均为 HTTP 200，无页面脚本错误或横向溢出，AWS 请求数为 0。
+- 本次公开源已返回 `Spring 2027 Semester (View Only)`（202730），CS3100 查询成功；这不代表注册已开放或访客具备选课资格。
+- 生产证据见 [persistence-production-2026-10-25.json](persistence-production-2026-10-25.json)，复查命令为 `node frontend/verify-live-persistence.mjs`。浏览器 context 只为执行环境代理采用证书信任例外，产品 TLS 处理未改变；普通 curl 验证同样成功。
 - 当前本机持久化仅属于同一 origin 下的浏览器配置，不代表跨设备账号同步；关闭网页不继续监控。
 
 
